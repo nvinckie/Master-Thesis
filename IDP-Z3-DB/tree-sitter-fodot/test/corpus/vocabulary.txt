@@ -1,0 +1,285 @@
+==========================
+Vocabulary enumerated type
+==========================
+
+vocabulary {
+    type ABC := {a, b, c}
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+      (declaration
+        (type_declaration
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element)
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+====================
+Vocabulary open type
+====================
+
+vocabulary {
+    type ABC
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+       (declaration
+         (type_declaration
+           (symbol_name)
+         )
+       )
+    )
+  )
+)
+
+================
+Named Vocabulary
+================
+
+vocabulary V {
+    type ABC
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+       (block_name)
+       (declaration
+         (type_declaration
+           (symbol_name)
+         )
+       )
+    )
+  )
+)
+
+==============================
+Vocabulary ranged integer type
+==============================
+
+vocabulary {
+    type foo := {0..15}
+    type foo := {150..1500}
+}
+
+---
+
+    (source_file
+      (block
+        (block_voc
+          (declaration
+            (type_declaration
+              (symbol_name)
+              (symbol_interpretation
+                (range_enumeration
+                  (type_element)
+                  (type_element)))))
+          (declaration
+            (type_declaration
+              (symbol_name)
+              (symbol_interpretation
+                (range_enumeration
+                  (type_element)
+                  (type_element))))))))
+
+=======================
+Proposition Declaration
+=======================
+
+vocabulary {
+    p: -> Bool
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+       (declaration
+         (prop_declaration
+           (symbol_name)
+         )
+       )
+    )
+  )
+)
+
+===========================
+1-ary Predicate Declaration
+===========================
+
+vocabulary {
+    p: (Bool) -> Bool
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+       (declaration
+         (predicate_declaration
+           (symbol_name)
+           (symbol_name)
+         )
+       )
+    )
+  )
+)
+
+===========================
+n-ary Predicate Declaration
+===========================
+
+vocabulary {
+    type ABC
+    type XYZ := {a, b, c}
+    type Other
+    p: (ABC) -> Bool
+    q: (ABC * XYZ) -> Bool
+    r: (ABC * XYZ * Other) -> Bool
+}
+
+---
+
+(source_file
+ (block
+   (block_voc
+     (declaration
+       (type_declaration
+         (symbol_name)))
+     (declaration
+       (type_declaration
+         (symbol_name)
+         (symbol_interpretation
+           (element_enumeration
+             (type_element)
+             (type_element)
+             (type_element)))))
+     (declaration
+       (type_declaration
+         (symbol_name)))
+     (declaration
+       (predicate_declaration
+         (symbol_name)
+         (symbol_name)))
+     (declaration
+       (predicate_declaration
+         (symbol_name)
+         (symbol_name)
+         (symbol_name)))
+     (declaration
+       (predicate_declaration
+         (symbol_name)
+         (symbol_name)
+         (symbol_name)
+         (symbol_name))))))
+
+===========================
+1-ary Function Declaration
+===========================
+
+vocabulary {
+    type ABC
+    p: (ABC) -> Int
+    q: (ABC) -> Real
+    r: (ABC) -> ABC
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+      (declaration
+        (type_declaration
+          (symbol_name)))
+      (declaration
+        (function_declaration
+          (symbol_name)
+          (symbol_name)
+          (builtin_type)))
+      (declaration
+        (function_declaration
+          (symbol_name)
+          (symbol_name)
+          (builtin_type)))
+      (declaration
+        (function_declaration
+          (symbol_name)
+          (symbol_name)
+          (symbol_name))))))
+
+===========================
+n-ary Function Declaration
+===========================
+
+vocabulary {
+    type ABC := {a, b, c}
+    type XYZ1 := {d, e, f}
+    type 1PQR := {g, h, i}
+    p: (ABC * XYZ1) -> 1PQR
+    q: (ABC * 1PQR * XYZ1) -> Real
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+      (declaration
+        (type_declaration
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element)))))
+      (declaration
+        (type_declaration
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element)))))
+      (declaration
+        (type_declaration
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element)))))
+      (declaration
+        (function_declaration
+          (symbol_name)
+          (symbol_name)
+          (symbol_name)
+          (symbol_name)))
+      (declaration
+        (function_declaration
+          (symbol_name)
+          (symbol_name)
+          (symbol_name)
+          (symbol_name)
+          (builtin_type))))))

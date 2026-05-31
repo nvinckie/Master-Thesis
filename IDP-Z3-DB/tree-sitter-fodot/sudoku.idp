@@ -1,0 +1,5 @@
+theory {
+    // TODO: add SameRow, SameCol and SameBox predicates to test the structure.
+    !r1 in Row: !r2 in Row: !c1 in Col: !c2 in Col: sameRow(r1, c1, r2, c2).
+
+}

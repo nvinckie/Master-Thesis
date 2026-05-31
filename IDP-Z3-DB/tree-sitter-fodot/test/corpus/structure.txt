@@ -1,0 +1,145 @@
+==========================
+Structure enumerated type
+==========================
+
+structure {
+    ABC := {a, b, c}.
+}
+
+---
+
+    (source_file
+      (block
+        (block_structure
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element))))))
+
+===================================
+Structure enumerated 1-ary function
+===================================
+
+structure {
+    foo := {a -> 1, b -> 2, c -> 3}.
+}
+
+---
+
+    (source_file
+      (block
+        (block_structure
+          (symbol_name)
+          (symbol_interpretation
+            (function_enumeration
+              (element_enumeration
+                (type_element))
+              (type_element)
+              (element_enumeration
+                (type_element))
+              (type_element)
+              (element_enumeration
+                (type_element))
+              (type_element))))))
+
+
+==================
+General structure.
+==================
+
+structure {
+    country := {Belgium, France, Germany, Netherlands}.
+    benelux := {Belgium, Netherlands}.
+    benelux := {(Belgium), (Netherlands)}.
+    inhabitants := {Belgium -> 1, France -> 2, Germany -> 3}.
+
+    bordering := {(Belgium, France), (Germany, France)}.
+
+    weight := {(Belgium, France) -> 3, (Belgium, Germany) -> 5}.
+}
+---
+
+
+    (source_file
+      (block
+        (block_structure
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)
+              (type_element)
+              (type_element)))
+          (symbol_name)
+          (symbol_interpretation
+            (element_enumeration
+              (type_element)
+              (type_element)))
+          (symbol_name)
+          (symbol_interpretation
+            (predicate_enumeration
+              (element_enumeration
+                (type_element))
+              (element_enumeration
+                (type_element))))
+          (symbol_name)
+          (symbol_interpretation
+            (function_enumeration
+              (element_enumeration
+                (type_element))
+              (type_element)
+              (element_enumeration
+                (type_element))
+              (type_element)
+              (element_enumeration
+                (type_element))
+              (type_element)))
+          (symbol_name)
+          (symbol_interpretation
+            (predicate_enumeration
+              (element_enumeration
+                (type_element)
+                (type_element))
+              (element_enumeration
+                (type_element)
+                (type_element))))
+          (symbol_name)
+          (symbol_interpretation
+            (function_enumeration
+              (element_enumeration
+                (type_element)
+                (type_element))
+              (type_element)
+              (element_enumeration
+                (type_element)
+                (type_element))
+              (type_element))))))
+
+
+============
+else operator
+============
+
+structure {
+    color_of := {BE -> red,
+                 DE -> blue
+                } else green.
+}
+
+---
+
+(source_file
+  (block
+    (block_structure
+      (symbol_name)
+      (symbol_interpretation
+        (function_enumeration
+          (element_enumeration
+            (type_element))
+          (type_element)
+          (element_enumeration
+            (type_element))
+          (type_element))
+        (type_element)))))

@@ -1,0 +1,34 @@
+===========================
+Simple fodot implementation
+===========================
+
+vocabulary {
+    p: -> Bool
+    q: -> Bool
+}
+
+theory {
+    p() => q().
+}
+
+---
+
+(source_file
+  (block
+    (block_voc
+      (declaration
+        (prop_declaration
+          (symbol_name)))
+      (declaration
+        (prop_declaration
+          (symbol_name)))))
+  (block
+    (block_theory
+      (formula
+        (implication
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (applied_symbol
+              (symbol_name))))))))

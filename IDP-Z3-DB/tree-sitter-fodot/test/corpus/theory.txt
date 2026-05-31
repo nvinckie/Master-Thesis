@@ -1,0 +1,791 @@
+============
+Empty theory
+============
+
+theory {
+ 
+}
+
+---
+
+(source_file
+      (block
+        (block_theory)))
+
+==================
+Empty named theory
+==================
+
+theory T:V {
+
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (block_name)
+      (block_name))))
+
+======================================
+Simple theory
+======================================
+
+theory T:V {
+   p().
+   q(1).
+   r(2, 3).
+}
+
+---
+
+   (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (applied_symbol
+              (symbol_name)
+              (formula
+                (type_element))))
+          (formula
+            (applied_symbol
+              (symbol_name)
+              (formula
+                (type_element))
+              (formula
+                (type_element)))))))
+========================
+Theory with lor and land
+========================
+
+theory T:V {
+   p() & q() & r().
+
+   p() | q() | r().
+
+   p() & q() | r().
+
+   p() | q() & r().
+}
+
+---
+
+    (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (land
+              (formula
+                (land
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (lor
+              (formula
+                (lor
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (land
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (lor
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))))
+          (formula
+            (land
+              (formula
+                (lor
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (applied_symbol
+                  (symbol_name))))))))
+
+====================
+Theory with negation
+====================
+
+theory T:V {
+   ~p().
+
+   ~q() & ~p().
+
+   ~(r() & ~q()).
+
+   q() & ~(r() & ~q()).
+}
+
+---
+
+    (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (neg
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (land
+              (formula
+                (neg
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (neg
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))))
+          (formula
+            (neg
+              (formula
+                (formula
+                  (land
+                    (formula
+                      (applied_symbol
+                        (symbol_name)))
+                    (formula
+                      (neg
+                        (formula
+                          (applied_symbol
+                            (symbol_name))))))))))
+          (formula
+            (land
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (neg
+                  (formula
+                    (formula
+                      (land
+                        (formula
+                          (applied_symbol
+                            (symbol_name)))
+                        (formula
+                          (neg
+                            (formula
+                              (applied_symbol
+                                (symbol_name)))))))))))))))
+
+=======================
+Theory with implication
+=======================
+
+theory T:V {
+    p() => q().
+
+    p() => q() => r().
+
+    p() => r() <= q().
+
+    p() => (r() <= q()).
+}
+
+---
+
+    (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (implication
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))))
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (implication
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))))
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (formula
+                  (implication
+                    (formula
+                      (applied_symbol
+                        (symbol_name)))
+                    (formula
+                      (applied_symbol
+                        (symbol_name)))))))))))
+
+=======================
+Theory with equivalence
+=======================
+
+theory T:V {
+    a() <=> b().
+    a() <=> c() => b().
+}
+
+---
+
+    (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (equivalence
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (implication
+              (formula
+                (equivalence
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (applied_symbol
+                  (symbol_name))))))))
+
+=================
+Theory with maths
+=================
+
+theory T:V {
+    p() + q() - r() = 5. 
+    r() < q().
+    q() > r().
+    5 =< r().
+    10 < 15.
+    a() >= b().
+}
+
+---
+
+    (source_file
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (equality
+              (formula
+                (subtraction
+                  (formula
+                    (sum
+                      (formula
+                        (applied_symbol
+                          (symbol_name)))
+                      (formula
+                        (applied_symbol
+                          (symbol_name)))))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))))
+              (formula
+                (type_element))))
+          (formula
+            (le
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (ge
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (leq
+              (formula
+                (type_element))
+              (formula
+                (applied_symbol
+                  (symbol_name)))))
+          (formula
+            (le
+              (formula
+                (type_element))
+              (formula
+                (type_element))))
+          (formula
+            (geq
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (applied_symbol
+                  (symbol_name))))))))
+
+=======================
+Theory with universal quantifiers
+=======================
+
+theory T:V {
+    !p in Person: Mortal(p).
+    !p in Person: Age(p) > 18.
+    !a in Adh: !m in Mat: str(a) > str(m).
+    !c1, c2 in Cel: same_row(c1, c2) => value(c1) ~= value(c2).
+    !c1, c2 in Cel, r1, c2 in Row: same_row(c1, c2) => value(c1) ~= value(c2).
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (block_name)
+      (block_name)
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (symbol_name))
+          (formula
+            (applied_symbol
+              (symbol_name)
+              (formula
+                (type_element))))))
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (symbol_name))
+          (formula
+            (ge
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element))))
+              (formula
+                (type_element))))))
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (symbol_name))
+          (formula
+            (universal
+              (quantification
+                (variable)
+                (symbol_name))
+              (formula
+                (ge
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element))))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element))))))))))
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (variable)
+            (symbol_name))
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element))
+                  (formula
+                    (type_element))))
+              (formula
+                (inequality
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element))))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element))))))))))
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (variable)
+            (symbol_name))
+          (quantification
+            (variable)
+            (variable)
+            (symbol_name))
+          (formula
+            (implication
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element))
+                  (formula
+                    (type_element))))
+              (formula
+                (inequality
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element))))
+                  (formula
+                    (applied_symbol
+                      (symbol_name)
+                      (formula
+                        (type_element)))))))))))))
+
+===================================
+Theory with existential quantifiers
+===================================
+
+theory T:V {
+    ?p in Person: Adult(p).
+    !p in Person: ?p2 in Person: Parent(p2, p1).
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (block_name)
+      (block_name)
+      (formula
+        (existential
+          (quantification
+          (variable)
+          (symbol_name))
+          (formula
+            (applied_symbol
+              (symbol_name)
+              (formula
+                (type_element))))))
+      (formula
+        (universal
+          (quantification
+          (variable)
+          (symbol_name))
+          (formula
+            (existential
+              (quantification
+              (variable)
+              (symbol_name))
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element))
+                  (formula
+                    (type_element)))))))))))
+
+=======
+Comment
+=======
+
+vocabulary V {
+    type Person := {a, b}
+    Adult: Person -> Bool  
+    Parent: Person * Person -> Bool
+    // something in comment.
+}
+
+theory T:V {
+    ?p in Person: Adult(p).
+//    !p in Person: ?p2 in Person: Parent(p2, p1).
+}
+
+---
+
+    (source_file
+      (block
+        (block_voc
+          (block_name)
+          (declaration
+            (type_declaration
+              (symbol_name)
+              (symbol_interpretation
+                (element_enumeration
+                  (type_element)
+                  (type_element)))))
+          (declaration
+            (predicate_declaration
+              (symbol_name)
+              (symbol_name)))
+          (declaration
+            (predicate_declaration
+              (symbol_name)
+              (symbol_name)
+              (symbol_name)))))
+      (block
+        (block_theory
+          (block_name)
+          (block_name)
+          (formula
+            (existential
+              (quantification
+              (variable)
+              (symbol_name))
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element)))))))))
+
+
+============
+in statement
+============
+
+theory {
+    Color() in {red, blue, green}.
+    !x in Country: Color(x) in {red, blue, green}.
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (formula
+        (in_operator
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (type_element)
+          (type_element)
+          (type_element)))
+      (formula
+        (universal
+          (quantification
+            (variable)
+            (symbol_name))
+          (formula
+            (in_operator
+              (formula
+                (applied_symbol
+                  (symbol_name)
+                  (formula
+                    (type_element))))
+              (type_element)
+              (type_element)
+              (type_element))))))))
+
+================
+floats and stuff
+================
+
+theory {
+    length() = 2.0.
+    width() = 3.
+    type() = polygon.
+    scale() = -4.5.
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (type_element))))
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (type_element))))
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+        (type_element))))
+          (formula
+            (equality
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+            (type_element)))))))
+
+================
+Arithmetic and more
+================
+
+theory {
+    length() = 2.0 * 3.5.
+    min_width() = width() + 2.1.
+    max_width() = width() - 2.1.
+    size() = width()/5.1.
+    size() = width() % 5.1.
+}
+
+---
+
+(source_file
+  (block
+    (block_theory
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (multiplication
+              (formula
+                (type_element))
+              (formula
+                (type_element))))))
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (sum
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (type_element))))))
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (subtraction
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (type_element))))))
+      (formula
+        (equality
+          (formula
+            (applied_symbol
+              (symbol_name)))
+          (formula
+            (division
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (type_element))))))
+          (formula
+            (equality
+              (formula
+                (applied_symbol
+                  (symbol_name)))
+              (formula
+                (modulo
+                  (formula
+                    (applied_symbol
+                      (symbol_name)))
+                  (formula
+                (type_element)))))))))
+
+=================
+simple definition
+=================
+
+theory {
+    {
+        p() <- q().
+        q() <- p().
+    }
+}
+
+
+=================
+definition + quant
+=================
+
+
+=================
+definition of function
+=================
